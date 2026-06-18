@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using WorkFlowHub.Api.Data;
 using WorkFlowHub.Api.DTOs.Employees;
 using WorkFlowHub.Api.Entities;
@@ -96,7 +97,10 @@ namespace WorkFlowHub.Api.Services
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow
             };
-
+//We only add employee, but because employee.User = user, EF understands:
+//Create User first
+//Then create Employee with that UserId
+//This is EF relationship tracking.
             var employee = new Employee
             {
                 User = user,
